@@ -47,7 +47,7 @@ async function main() {
 
       // Extract headers from the curl command
       lines.slice(1, -2).forEach((line) => {
-        const [key, ...valueParts] = line.replace(/.*?'/, "").split(":");
+        const [key, ...valueParts] = line.replace(/.*?'/, "").replace(/\s*'.*/,"").split(":");
         axiosConfig.headers[key.trim()] = valueParts.join(":").trim();
       });
 
