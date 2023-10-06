@@ -200,12 +200,6 @@ const _header = [];
     "Your earnings",
     "Tip",
     "Wait Time at Pickup",
-    "Admin Minutes",
-    "Total Trip Time",
-    "Admin Miles",
-    "Miles",
-    "Time At Stop",
-    "Time Pay",
 ].forEach((item) => {
   _header.push(item);
 });
@@ -215,6 +209,12 @@ _sanitized.forEach((line) => {
     return;
   }
 
+    // "Wait Time at Pickup",
+    // "Admin Minutes",
+    // "Total Trip Time",
+    // "Admin Miles",
+    // "Miles",
+    // "Time At Stop",
   const _line = [];
   [
     "DateTime",
@@ -223,12 +223,6 @@ _sanitized.forEach((line) => {
     "Your earnings",
     "Tip",
     "Wait Time at Pickup",
-    "Admin Minutes",
-    "Total Trip Time",
-    "Admin Miles",
-    "Miles",
-    "Time At Stop",
-    "Time Pay",
   ].forEach((item) => {
     _line.push(line[item] || "");
   });
