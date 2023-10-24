@@ -121,19 +121,28 @@ function convertTimeStringToMinutes(inputString) {
   }
 }
 
-
-function convertToGoogleSheetsDatetime(inputString) {
-  const dateObj = new Date(inputString);
+function convertToGoogleSheetsCompatibleDatetime(inputValue) {
+  const dateObj = new Date(inputValue);
 
   if (isNaN(dateObj.getTime())) {
-    // Invalid date string
-    throw new Error("Invalid date string format.");
+    // Invalid input
+    throw new Error("Invalid input value.");
   }
 
-  dateObj.setMinutes(dateObj.getMinutes() - 600);
-  const isoDatetime = dateObj.toISOString();
-  return isoDatetime;
+  // Extract individual date and time components
+  const year = dateObj.getFullYear();
+  const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+  const day = String(dateObj.getDate()).padStart(2, '0');
+  const hours = String(dateObj.getHours()).padStart(2, '0');
+  const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+  const seconds = String(dateObj.getSeconds()).padStart(2, '0');
+
+  // Format the components into the Google Sheets compatible string
+  const formattedDatetime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+  return formattedDatetime;
 }
+
 
 function formatMilesStringToDecimal(inputString) {
   // Use a regular expression to match the expected format "X.X mi"
@@ -171,7 +180,7 @@ function sanitizeResults(data) {
     console.log(obj);
     _newObj.Duration = convertTimeStringToMinutes(_newObj.Duration);
     _newObj.Distance = formatMilesStringToDecimal(_newObj.Distance);
-    _newObj.DateTime = convertToGoogleSheetsDatetime(
+    _newObj.DateTime = convertToGoogleSheetsCompatibleDatetime(
       `${_newObj["Date Requested"]} ${_newObj["Time Requested"]}`
     );
 
