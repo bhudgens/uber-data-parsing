@@ -146,7 +146,7 @@ function convertToGoogleSheetsCompatibleDatetime(inputValue) {
 
 function formatMilesStringToDecimal(inputString) {
   // Use a regular expression to match the expected format "X.X mi"
-  const regex = /^(\d+[\.\d+]*)\s*mi$/;
+  const regex = /^(\d+[\.\d+]*)\s*mi[le]*$/;
 
   const match = inputString.match(regex);
 
